@@ -124,11 +124,11 @@ let component = ReasonReact.reducerComponent("App");
 let render = self => {
   let {userId, resultList} = self.RR.state;
   let dispatcher = (new dispatcher)(self);
-  <div className="atcoder-reader-main container">
-    <h1 className="title is-1">(s("ATCODER READER"))</h1>
+  <Atom.Container>
+    <Atom.H1>(s("ATCODER READER"))</Atom.H1>
     <Template.ResultsControl dispatcher userId />
     <ResultList resultList />
-  </div>
+  </Atom.Container>
 }
 
 let make = (~userId, _children) => {
