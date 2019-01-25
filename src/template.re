@@ -1,0 +1,1 @@
+module ResultsControl = Template_ResultsControl;

@@ -78,7 +78,7 @@ let reducer = (action, state) =>
         Fetch.fetch(url)
         |> then_(Fetch.Response.json)
         |> then_(json => resolve(self.send(SuccessFetchResults(json))))
-        |> catch (_ => resolve(self.send(FailureFetchResults)))
+        |> catch(_ => resolve(self.send(FailureFetchResults)))
         |> ignore
       ));
     };
@@ -107,30 +107,26 @@ let reducer = (action, state) =>
 
 let didMount = self => self.RR.send(FetchResults);
 
-let changeUserName = (self, event) => {
-  let userId = (RE.Form.target(event))##value;
-  self.RR.send(ChangeUserId(userId));
-};
-
-let clickSubmit = (self, event) => {
-  RE.Mouse.preventDefault(event);
-  self.RR.send(FetchResults);
-};
+class dispatcher ('self) (self: 'self) = {
+  as _;
+  pub changeUserName = event => {
+    let userId = (RE.Form.target(event))##value;
+    self.RR.send(ChangeUserId(userId));
+  };
+  pub fetchResults = event => {
+    RE.Mouse.preventDefault(event);
+    self.RR.send(FetchResults);
+  }
+}
 
 let component = ReasonReact.reducerComponent("App");
 
 let render = self => {
   let {userId, resultList} = self.RR.state;
+  let dispatcher = (new dispatcher)(self);
   <div className="atcoder-reader-main container">
     <h1 className="title is-1">(s("ATCODER READER"))</h1>
-    <div className="field has-addons">
-      <div className="control">
-        <input className="input" type_="text" onChange=(changeUserName(self)) value=userId />
-      </div>
-      <div className="control">
-        <input className="input" type_="submit" onClick=(clickSubmit(self)) value={j|取得|j} />
-      </div>
-    </div>
+    <Template.ResultsControl dispatcher userId />
     <ResultList resultList />
   </div>
 }
