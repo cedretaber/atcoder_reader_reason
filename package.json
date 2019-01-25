@@ -1,0 +1,28 @@
+{
+  "name": "atcoder_reader_reason",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "bundle": "parcel build src/index.bs.js"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bs-fetch": "^0.3.1",
+    "parcel-bundler": "^1.11.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reason-react": ">=0.5.3"
+  },
+  "devDependencies": {
+    "bs-platform": "^4.0.18",
+    "bsb-js": "^1.1.7"
+  }
+}
