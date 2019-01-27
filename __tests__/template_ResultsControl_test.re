@@ -39,7 +39,7 @@ describe("Template.ResultsControl", () => {
     let userId = ref("");
     let wrapper =
       setup(
-        ~onChange=(e => { userId := ReactEvent.Form.target(e)##value; () }),
+        ~onChange=(e => { userId := e->ReactEvent.Form.target##value; () }),
         userId^
       );
     let newUserId = "new user id";

@@ -34,16 +34,31 @@ let result_of_json = json => Js.Json.(
     let flatMap = Belt.Option.flatMap;
     let map = Belt.Option.map;
     switch (
-      get("id") |. flatMap(decodeNumber) |. map(int_of_float),
-      get("user_id") |. flatMap(decodeString),
-      get("contest_id") |. flatMap(decodeString),
-      get("problem_id") |. flatMap(decodeString),
-      get("result") |. flatMap(decodeString) |. map(Result.type_of_string),
-      get("point") |. flatMap(decodeNumber),
-      get("epoch_second") |. flatMap(decodeNumber) |. map(int_of_float),
-      get("execution_time") |. flatMap(decodeNumber) |. map(int_of_float),
-      get("language") |. flatMap(decodeString),
-      get("length") |. flatMap(decodeNumber) |. map(int_of_float)
+      get("id")
+        ->flatMap(decodeNumber)
+        ->map(int_of_float),
+      get("user_id")
+        ->flatMap(decodeString),
+      get("contest_id")
+        ->flatMap(decodeString),
+      get("problem_id")
+        ->flatMap(decodeString),
+      get("result")
+        ->flatMap(decodeString)
+        ->map(Result.type_of_string),
+      get("point")
+        ->flatMap(decodeNumber),
+      get("epoch_second")
+        ->flatMap(decodeNumber)
+        ->map(int_of_float),
+      get("execution_time")
+        ->flatMap(decodeNumber)
+        ->map(int_of_float),
+      get("language")
+        ->flatMap(decodeString),
+      get("length")
+        ->flatMap(decodeNumber)
+        ->map(int_of_float)
     ) {
     | (
       Some(id),
@@ -83,8 +98,8 @@ let makeReducer = apiClient => (action, state) =>
   | (SuccessFetchResults(json), _) =>
       let resultArray =
         json
-        |. Js.Json.decodeArray
-        |. Belt.Option.getWithDefault([||]);
+        ->Js.Json.decodeArray
+        ->Belt.Option.getWithDefault([||]);
       let resultList =
         Array.fold_right(
           (json, acc) => {
@@ -108,11 +123,11 @@ let didMount = self => self.RR.send(FetchResults);
 class dispatcher ('self) (self: 'self) = {
   as _;
   pub changeUserName = event => {
-    let userId = RE.Form.target(event)##value;
+    let userId = event->RE.Form.target##value;
     self.RR.send(ChangeUserId(userId));
   };
   pub fetchResults = event => {
-    RE.Mouse.preventDefault(event);
+    event->RE.Mouse.preventDefault;
     self.RR.send(FetchResults);
   }
 }
