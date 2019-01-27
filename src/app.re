@@ -17,7 +17,7 @@ type action =
   | FailureFetchResults
   | ChangeUserId(string);
 
-let initialState = (userId, ()) => {
+let makeInitialState = (userId, ()) => {
   let userId =
     switch (userId) {
     | Some(userId) => userId;
@@ -67,25 +67,23 @@ let result_of_json = json => Js.Json.(
   }
 )
 
-let reducer = (action, state) =>
+let makeReducer = apiClient => (action, state) =>
   switch (action, state) {
   | (FetchResults, {userId}) =>
     if (userId == "") {
       RR.NoUpdate;
     } else {
-      let url = {j|https://kenkoooo.com/atcoder/atcoder-api/results?user=$userId|j};
       RR.SideEffects(Js.Promise.(self =>
-        Fetch.fetch(url)
-        |> then_(Fetch.Response.json)
+        apiClient.ApiClient.fetchResults(userId)
         |> then_(json => resolve(self.send(SuccessFetchResults(json))))
         |> catch(_ => resolve(self.send(FailureFetchResults)))
         |> ignore
       ));
     };
   | (SuccessFetchResults(json), _) =>
-      let open Js.Json;
       let resultArray =
-        decodeArray(json)
+        json
+        |. Js.Json.decodeArray
         |. Belt.Option.getWithDefault([||]);
       let resultList =
         Array.fold_right(
@@ -131,10 +129,10 @@ let render = self => {
   </Atom.Container>
 }
 
-let make = (~userId, _children) => {
+let make = (~userId, ~apiClient, _children) => {
   ...component,
-  initialState: initialState(userId),
-  reducer,
+  initialState: makeInitialState(userId),
+  reducer: makeReducer(apiClient),
   didMount,
   render
 };

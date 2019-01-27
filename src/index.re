@@ -3,4 +3,6 @@ let maybeUser = switch [%bs.raw {|(location.search.match(/[?&]user=(\w+)/) || [0
 | userId => Some(userId);
 };
 
-ReactDOMRe.renderToElementWithId(<App userId=maybeUser />, "app");
+let apiClient = ApiClient.make(userId => {j|https://kenkoooo.com/atcoder/atcoder-api/results?user=$userId|j});
+
+ReactDOMRe.renderToElementWithId(<App userId=maybeUser apiClient />, "app");
