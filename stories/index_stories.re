@@ -1,7 +1,7 @@
 open BsStorybook;
 open Story;
 
-let _module = [%bs.raw "module"];
+let module_ = [%bs.raw "module"];
 
 module Knobs = {
   include(Knobs);
@@ -10,21 +10,21 @@ module Knobs = {
   external withKnobs: Main.decorator = "";
 };
 
-storiesOf("Button", _module)
-|. addDecorator(Knobs.withKnobs)
-|. add("with simple label", () => {
+storiesOf("Button", module_)
+->addDecorator(Knobs.withKnobs)
+->add("with simple label", () => {
   let label = Knobs.text(~label="Button text", ~defaultValue="Click me!", ());
   <Atom.Button onClick=(Action.action("Clicked!")) value=label />
 });
 
-storiesOf("Input", _module)
-|. add("with no input", () => {
+storiesOf("Input", module_)
+->add("with no input", () => {
   <Atom.Input onChange=(Action.action("Changed!")) value="" />
 });
 
-storiesOf("ResultsControl", _module)
-|. addDecorator(Knobs.withKnobs)
-|. add("Simple usage", () => {
+storiesOf("ResultsControl", module_)
+->addDecorator(Knobs.withKnobs)
+->add("Simple usage", () => {
   let dispatcher = {
     as _;
     pub changeUserId = Action.action("Change user ID.");

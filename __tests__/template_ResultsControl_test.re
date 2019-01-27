@@ -5,18 +5,18 @@ Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 
 
 let setup = (~onClick=(_ => ()), ~onChange=(_ => ()), userId) => {
-  let dummyDispatcher = {
+  let dispatcher = {
     as _;
     pub changeUserId = onChange;
     pub fetchResults = onClick;
   };
-  Enzyme.mount(<Template.ResultsControl dispatcher=dummyDispatcher userId />);
+  Enzyme.mount(<Template.ResultsControl dispatcher userId />);
 }
 
 describe("Template.ResultsControl", () => {
   let module EM = Enzyme.Mount;
 
-  test("render with text input", () => {
+  test("render with a text input", () => {
     let userId = "test user id";
     let wrapper = setup(userId);
     let textInput =
@@ -26,7 +26,7 @@ describe("Template.ResultsControl", () => {
     expect(EM.length(textInput)) |> toBe(1);
   });
 
-  test("render with button input", () => {
+  test("render with a button input", () => {
     let wrapper = setup("test user id");
     let textInput =
       wrapper
@@ -35,7 +35,7 @@ describe("Template.ResultsControl", () => {
     expect(EM.length(textInput)) |> toBe(1);
   });
 
-  test("change input", () => {
+  test("change a input", () => {
     let userId = ref("");
     let wrapper =
       setup(
@@ -49,7 +49,7 @@ describe("Template.ResultsControl", () => {
     expect(userId^) |> toBe(newUserId);
   });
 
-  test("push button", () => {
+  test("push a button", () => {
     let count = ref(0);
     let wrapper =
       setup(
