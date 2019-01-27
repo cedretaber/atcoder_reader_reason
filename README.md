@@ -1,6 +1,8 @@
 
 # ATCODER READER
 
+[![CircleCI](https://circleci.com/gh/cedretaber/atcoder_reader_reason.svg?style=svg)](https://circleci.com/gh/cedretaber/atcoder_reader_reason)
+
 ## Setup
 
 ```bash
