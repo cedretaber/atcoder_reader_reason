@@ -122,7 +122,7 @@ let didMount = self => self.RR.send(FetchResults);
 
 class dispatcher ('self) (self: 'self) = {
   as _;
-  pub changeUserName = event => {
+  pub changeUserId = event => {
     let userId = event->RE.Form.target##value;
     self.RR.send(ChangeUserId(userId));
   };

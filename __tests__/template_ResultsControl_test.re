@@ -7,7 +7,7 @@ Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 let setup = (~onClick=(_ => ()), ~onChange=(_ => ()), userId) => {
   let dummyDispatcher = {
     as _;
-    pub changeUserName = onChange;
+    pub changeUserId = onChange;
     pub fetchResults = onClick;
   };
   Enzyme.mount(<Template.ResultsControl dispatcher=dummyDispatcher userId />);

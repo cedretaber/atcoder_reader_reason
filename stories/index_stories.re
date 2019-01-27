@@ -27,7 +27,7 @@ storiesOf("ResultsControl", _module)
 |. add("Simple usage", () => {
   let dispatcher = {
     as _;
-    pub changeUserName = Action.action("Change user ID.");
+    pub changeUserId = Action.action("Change user ID.");
     pub fetchResults = Action.action("Fetch results.");
   };
   let userId = Knobs.text(~label="User ID", ~defaultValue="", ());
