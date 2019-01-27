@@ -9,6 +9,11 @@
       "subdirs" : true
     },
     {
+      "dir": "stories",
+      "subdirs" : true,
+      "type": "dev"
+    },
+    {
       "dir": "__tests__",
       "subdirs" : true,
       "type": "dev"
@@ -26,7 +31,8 @@
   ],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest",
-    "bs-enzyme"
+    "bs-enzyme",
+    "bs-storybook"
   ],
   "refmt": 3
 }

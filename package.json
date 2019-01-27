@@ -7,7 +7,9 @@
     "clean": "bsb -clean-world",
     "test": "bsb -make-world && jest",
     "start": "parcel index.html",
-    "bundle": "parcel build src/index.bs.js"
+    "bundle": "parcel build src/index.bs.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
     "BuckleScript"
@@ -16,13 +18,21 @@
   "license": "MIT",
   "dependencies": {
     "bs-fetch": "^0.3.1",
+    "bs-storybook": "^0.3.0",
     "parcel-bundler": "^1.11.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reason-react": ">=0.5.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
     "@glennsl/bs-jest": "^0.4.7",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-links": "^4.1.11",
+    "@storybook/addon-knobs": "^4.1.11",
+    "@storybook/addons": "^4.1.11",
+    "@storybook/react": "^4.1.11",
+    "babel-loader": "^8.0.5",
     "bs-enzyme": "^0.6.0",
     "bs-platform": "^4.0.18",
     "bsb-js": "^1.1.7",
