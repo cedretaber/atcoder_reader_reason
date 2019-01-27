@@ -3,7 +3,6 @@ open Expect;
 
 Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 
-
 let setup = (~onClick=(_ => ()), ~onChange=(_ => ()), userId) => {
   let dispatcher = {
     as _;
@@ -21,8 +20,7 @@ describe("Template.ResultsControl", () => {
     let wrapper = setup(userId);
     let textInput =
       wrapper
-      |> EM.find({j|input[type="text"][value="$(userId)"]|j})
-      |> EM.first;
+      |> EM.find({j|input[type="text"][value="$(userId)"]|j});
     expect(EM.length(textInput)) |> toBe(1);
   });
 
@@ -30,8 +28,7 @@ describe("Template.ResultsControl", () => {
     let wrapper = setup("test user id");
     let textInput =
       wrapper
-      |> EM.find({j|input[type="submit"][value="取得"]|j})
-      |> EM.first;
+      |> EM.find({j|input[type="submit"][value="取得"]|j});
     expect(EM.length(textInput)) |> toBe(1);
   });
 

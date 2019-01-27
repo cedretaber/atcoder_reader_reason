@@ -17,7 +17,7 @@ describe("Atom.Input", () => {
 
   test("on change a text", () => {
     let changed = ref("");
-    let wrapper = setup(e => { changed := e->ReactEvent.Form.target##value; ()}, "");
+    let wrapper = setup(e => { changed := e->ReactEvent.Form.target##value; () }, "");
     let newValue = "new value";
     wrapper |> ES.simulate1("change", [%bs.obj { target: { value: newValue } }]);
     expect(changed^) |> toBe(newValue);
